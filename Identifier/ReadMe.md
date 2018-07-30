@@ -10,19 +10,7 @@ Lex syntax
     main() {
       return yywrap();
     }
-    
-Yacc syntax
-   ...declarations...
-    %%
-    ...rules...
-    %%
-    #include "lex.yy.c"
 
-    ...additional user code...
-
-    main() {
-      return yyparse();
-    }
    
 run file on linux
   lex example.l
