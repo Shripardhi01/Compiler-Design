@@ -1,0 +1,43 @@
+Lex File ide.l
+%{
+#include"y.tab.h"
+%}
+
+%%
+[a-zA-Z]   {return LETTER ;}
+[0-9]	   {return LETTER ;}
+[_]	   {return UNDERSCORE ;}
+[\n]	   {return NL ;}
+. {return yytext[0] ;}
+%%
+
+Yacc file id.y
+%{
+#include<stdio.h>
+#include<stdlib.h>
+%}
+%token LETTER DIGIT UNDERSCORE NL
+%%
+stmt: variable NL {printf("valid identifier\n"),exit(0);}
+	;
+variable: LETTER alpha|UNDERSCORE alpha
+	;
+alpha: LETTER|DIGIT|LETTER alpha|DIGIT alpha
+	;
+%%
+int yyerror(char *msg)
+{
+printf("Invalid identifier");
+exit(0);
+}
+main()
+{
+printf("enter a string\n");
+yyparse();
+}
+
+save both file and run:
+lex id.l
+yacc id.y
+gcc -o id y.tab.c
+./id
